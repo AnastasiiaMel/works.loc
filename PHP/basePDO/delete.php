@@ -5,6 +5,6 @@ $statement = $pdo -> prepare($sql);
 $statement -> execute($_GET);
 
 
-header("Location:/index.php");
+header("Location:/PHP/basePDO/index.php");
 
 ?>
