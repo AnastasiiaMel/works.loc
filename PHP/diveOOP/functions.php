@@ -58,7 +58,7 @@ function add_user($email, $password){
         'password' => password_hash($password, PASSWORD_DEFAULT)
     ]);
 
-    return $pdo->lastInsertId();
+    return $result;
 }
 
 /**
@@ -73,4 +73,16 @@ function display_flash_message($name){
         echo "<div class=\"alert alert-{$name} text-dark\" role=\"alert\">{$_SESSION[$name]}</div>";
         unset($_SESSION[$name]);
     }
+}
+
+function login($email, $password){
+
+    $pdo = new PDO('mysql:host=localhost;dbname=my_project', 'root', '');
+    $sql = "SELECT * FROM users WHERE email=:email";
+    $statement = $pdo->prepare($sql);
+    $statement->execute(['email' => $email]);
+    $user_info = $statement->fetch(PDO::FETCH_ASSOC);
+    $password_correct = password_verify($password, $user_info['password']);
+    return $password_correct;
+
 }

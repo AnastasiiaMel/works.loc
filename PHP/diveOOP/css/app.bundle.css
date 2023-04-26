@@ -10,6 +10,6 @@
  	display: flex;
  }
 
- ul {
- 	margin-bottom: 0px;
+ .banned {
+ 	opacity: .4;
  }

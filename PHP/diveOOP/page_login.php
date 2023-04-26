@@ -1,3 +1,8 @@
+<?php
+session_start();
+require 'functions.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,6 +29,11 @@
     <link rel="stylesheet" media="screen, print" href="css/page-login-alt.css">
 </head>
 <body>
+<?php
+//echo password_hash(123, PASSWORD_DEFAULT);
+//$pass = '$2y$10$b/skxeQTWnyVjMysDFtIjenpV9PFK7.UuVPd8fvcEmcC1oDjm1CSq';
+//var_dump(password_verify(1234,$pass));
+?>
     <div class="blankpage-form-field">
         <div class="page-logo m-0 w-100 align-items-center justify-content-center rounded border-bottom-left-radius-0 border-bottom-right-radius-0 px-4">
             <a href="javascript:void(0)" class="page-logo-link press-scale-down d-flex align-items-center">
@@ -32,18 +42,18 @@
                 <i class="fal fa-angle-down d-inline-block ml-1 fs-lg color-primary-300"></i>
             </a>
         </div>
+
+
         <div class="card p-4 border-top-left-radius-0 border-top-right-radius-0">
-            <div class="alert alert-success">
-                Регистрация успешна
-            </div>
-            <form action="">
+            <?php display_flash_message("danger");?>
+            <form action="login.php" method="post">
                 <div class="form-group">
                     <label class="form-label" for="username">Email</label>
-                    <input type="email" id="username" class="form-control" placeholder="Эл. адрес" value="">
+                    <input name="email" type="email" id="username" class="form-control" placeholder="Эл. адрес" value="">
                 </div>
                 <div class="form-group">
                     <label class="form-label" for="password">Пароль</label>
-                    <input type="password" id="password" class="form-control" placeholder="" >
+                    <input name="password" type="password" id="password" class="form-control" placeholder="" >
                 </div>
                 <button type="submit" class="btn btn-default float-right">Войти</button>
             </form>
@@ -52,6 +62,8 @@
             Нет аккаунта? <a href="page_register.php"><strong>Зарегистрироваться</strong>
         </div>
     </div>
+
+
     <video poster="img/backgrounds/clouds.png" id="bgvid" playsinline autoplay muted loop>
         <source src="media/video/cc.webm" type="video/webm">
         <source src="media/video/cc.mp4" type="video/mp4">

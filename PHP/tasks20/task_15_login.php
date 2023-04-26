@@ -3,7 +3,7 @@ session_start();
 $email = $_POST['email'];
 $password = $_POST['password'];
 $pdo = new PDO('mysql:host=localhost;dbname=tasks_15', 'root', '');
-$sql = "SELECT * FROM `users` WHERE email=:email and password=:password";
+$sql = "SELECT * FROM `users` WHERE password=:password and email=:email ";
 $statement = $pdo->prepare($sql);
 $statement->execute(['email' => $email, 'password'=>$password]);
 $result = $statement->fetch(PDO::FETCH_ASSOC);
