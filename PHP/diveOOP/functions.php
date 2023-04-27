@@ -26,6 +26,7 @@ function get_user_by_email($email){
  */
 function set_flash_message($name, $massage){
     $_SESSION[$name] = $massage;
+    return $name;
 }
 
 
@@ -52,12 +53,12 @@ function add_user($email, $password){
     $pdo = new PDO('mysql:host=localhost;dbname=my_project', 'root', '');
     $sql = "INSERT INTO users (email, password) VALUES (:email, :password)";
     $statement = $pdo->prepare($sql);
-    $result = $statement->execute([
+    $statement->execute([
         'email' => $email,
         'password' => password_hash($password, PASSWORD_DEFAULT)
     ]);
 
-    return $result;
+    return $pdo->lastInsertId();
 }
 
 
@@ -179,4 +180,44 @@ function is_equal($user, $current_user){
     else{
         return false;
     }
+}
+
+
+function edit($username, $job_title, $phone, $address, $id){
+    $pdo = new PDO('mysql:host=localhost;dbname=my_project', 'root', '');
+    $sql = "UPDATE `users` set username = :username, job_title = :job_title, phone = :phone, address = :address WHERE users.id=:id";
+    $statement = $pdo->prepare($sql);
+    $statement->execute(['username' => $username, 'job_title' => $job_title, 'phone' => $phone, 'address' => $address, 'id'=>$id]);
+
+}
+
+function set_status($status, $id){
+    $pdo = new PDO('mysql:host=localhost;dbname=my_project', 'root', '');
+    $sql = "UPDATE `users` set status = :status WHERE users.id=:id";
+    $statement = $pdo->prepare($sql);
+    $statement->execute(['status' => $status, 'id'=>$id]);
+}
+
+
+function upload_avatar($avatar, $tmp_avatar, $id){
+    $tmp_upload = 'img/demo/avatars/';
+    $uniq_name = uniqid();
+    $extension = explode('.', $avatar);
+    $new_name = $uniq_name.'.'.$extension[array_key_last($extension)];
+    $new_tmp = $tmp_upload.$new_name;
+    move_uploaded_file($tmp_avatar, $new_tmp);
+
+    $pdo = new PDO('mysql:host=localhost;dbname=my_project', 'root', '');
+    $sql = "UPDATE `users` set image = :avatar WHERE users.id=:id";
+    $statement = $pdo->prepare($sql);
+    $statement->execute(['avatar'=> $new_tmp, 'id'=>$id]);
+
+}
+
+function add_social_links($telegram, $instagram, $vk, $id){
+    $pdo = new PDO('mysql:host=localhost;dbname=my_project', 'root', '');
+    $sql = "UPDATE `users` set telegram = :telegram, instagram = :instagram, vk = :vk WHERE users.id=:id";
+    $statement = $pdo->prepare($sql);
+    $statement->execute(['telegram' => $telegram, 'instagram' => $instagram, 'vk' => $vk, 'id'=>$id]);
+
 }

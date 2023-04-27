@@ -10,9 +10,6 @@ if(is_not_logged_in()){
 ?>
 
 <!DOCTYPE html>
-<?php
-$p=123;
-var_dump(password_hash($p, PASSWORD_DEFAULT));?>
 
 <html lang="en">
 <head>
@@ -45,16 +42,19 @@ var_dump(password_hash($p, PASSWORD_DEFAULT));?>
                         <a class="nav-link" href="page_login.php">Войти</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Выйти</a>
+                        <a class="nav-link" href="page_login.php">Выйти</a>
                     </li>
                 </ul>
             </div>
         </nav>
 
         <main id="js-page-content" role="main" class="page-content mt-3">
-            <div class="alert alert-success">
-                Профиль успешно обновлен.
-            </div>
+
+
+
+                <?php display_flash_message('success');?>
+
+
             <div class="subheader">
                 <h1 class="subheader-title">
                     <i class='subheader-icon fal fa-users'></i> Список пользователей
@@ -63,7 +63,7 @@ var_dump(password_hash($p, PASSWORD_DEFAULT));?>
             <div class="row">
                 <div class="col-xl-12">
                     <?php  if(is_admin(get_authenticated_user())): ?>
-                    <a class="btn btn-success" href="create_user.html">Добавить</a>
+                    <a class="btn btn-success" href="create_user.php">Добавить</a>
                     <?php endif; ?>
                     <div class="border-faded bg-faded p-3 mb-g d-flex mt-3">
                         <input type="text" id="js-filter-contacts" name="filter-contacts" class="form-control shadow-inset-2 form-control-lg" placeholder="Найти пользователя">
