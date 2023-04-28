@@ -1,6 +1,10 @@
 <?php
 session_start();
 require 'functions.php';
+if(isset($_GET['log_out'])){
+    log_out();
+}
+
 ?>
 
 <!DOCTYPE html>

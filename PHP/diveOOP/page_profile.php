@@ -1,3 +1,9 @@
+<?php
+session_start();
+require "functions.php";
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,19 +25,22 @@
             <div class="collapse navbar-collapse" id="navbarColor02">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item ">
-                        <a class="nav-link" href="#">Главная</a>
+                        <a class="nav-link" href="users.php">Главная</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav ml-auto">
+                    <?php if (empty($_SESSION['user'])): ?>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Войти</a>
+                        <a class="nav-link" href="page_login.php">Войти</a>
                     </li>
+                    <?php endif; ?>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Выйти</a>
                     </li>
                 </ul>
             </div>
         </nav>
+        <?php display_flash_message('success');?>
         <main id="js-page-content" role="main" class="page-content mt-3">
             <div class="subheader">
                 <h1 class="subheader-title">

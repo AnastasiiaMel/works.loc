@@ -16,7 +16,6 @@ function get_user_by_email($email){
     return $user;
 }
 
-
 /**
  *  Parameters:
  *          string - $name (ключ)
@@ -29,7 +28,6 @@ function set_flash_message($name, $massage){
     return $name;
 }
 
-
 /**
  *  Parameters:
  *          string - $path
@@ -40,7 +38,6 @@ function redirect_to($path){
     header("Location: {$path}");
     exit;
 }
-
 
 /**
  *  Parameters:
@@ -61,7 +58,6 @@ function add_user($email, $password){
     return $pdo->lastInsertId();
 }
 
-
 /**
  *  Parameters:
  *          string - $name (ключ)
@@ -74,7 +70,6 @@ function display_flash_message($name){
         unset($_SESSION[$name]);
     }
 }
-
 
 /**
  *  Parameters:
@@ -99,7 +94,6 @@ function login($email, $password){
     }
 }
 
-
 /**
  *  Parameters:
  *  Description: проверяем, что пользователь авторизовался
@@ -115,7 +109,6 @@ function is_logged_in(): bool
     }
 }
 
-
 /**
  *  Parameters:
  *  Description: проверяем, что пользователь не авторизовался
@@ -125,7 +118,6 @@ function is_not_logged_in(): bool
 {
     return !is_logged_in();
 }
-
 
 /**
  *  Parameters:
@@ -138,7 +130,6 @@ function get_users(){
     $statement = $pdo->query($sql);
     return $statement->fetchAll(PDO::FETCH_ASSOC);
 }
-
 
 /**
  *  Parameters:
@@ -156,6 +147,7 @@ function get_authenticated_user(){
 
 /**
  *  Parameters:
+ *          string $user
  *  Description: Проверяем является ли пользователь админом
  *  Return value: true || false
  */
@@ -170,10 +162,13 @@ function is_admin($user){
 
 /**
  *  Parameters:
+ *          string $user
+ *          string $current_user
  *  Description: Проверяем одинаковые ли пользователи из зарегистрированных и в БД
  *  Return value: true || false
  */
-function is_equal($user, $current_user){
+function is_equal($user, $current_user): bool
+{
     if ($user['id'] === $current_user['id']){
         return true;
     }
@@ -182,7 +177,16 @@ function is_equal($user, $current_user){
     }
 }
 
-
+/**
+ *  Parameters:
+ *          string $username
+ *          string $job_title
+ *          string $phone
+ *          string $address
+ *          string $id
+ *  Description: Изменяем данные пользователя
+ *  Return value: NULL
+ */
 function edit($username, $job_title, $phone, $address, $id){
     $pdo = new PDO('mysql:host=localhost;dbname=my_project', 'root', '');
     $sql = "UPDATE `users` set username = :username, job_title = :job_title, phone = :phone, address = :address WHERE users.id=:id";
@@ -191,6 +195,13 @@ function edit($username, $job_title, $phone, $address, $id){
 
 }
 
+/**
+ *  Parameters:
+ *          string $status
+ *          string $id
+ *  Description: Изменяем статус пользователя
+ *  Return value: NULL
+ */
 function set_status($status, $id){
     $pdo = new PDO('mysql:host=localhost;dbname=my_project', 'root', '');
     $sql = "UPDATE `users` set status = :status WHERE users.id=:id";
@@ -198,7 +209,14 @@ function set_status($status, $id){
     $statement->execute(['status' => $status, 'id'=>$id]);
 }
 
-
+/**
+ *  Parameters:
+ *          string $avatar
+ *          string $tmp_avatar
+ *          string $id
+ *  Description: Изменяем аватарку пользователя
+ *  Return value: NULL
+ */
 function upload_avatar($avatar, $tmp_avatar, $id){
     $tmp_upload = 'img/demo/avatars/';
     $uniq_name = uniqid();
@@ -214,10 +232,39 @@ function upload_avatar($avatar, $tmp_avatar, $id){
 
 }
 
+/**
+ *  Parameters:
+ *          string $telegram
+ *          string $instagram
+ *          string $vk
+ *          string $id
+ *  Description: Изменяем ссылки на соц сети пользователя
+ *  Return value: NULL
+ */
 function add_social_links($telegram, $instagram, $vk, $id){
     $pdo = new PDO('mysql:host=localhost;dbname=my_project', 'root', '');
     $sql = "UPDATE `users` set telegram = :telegram, instagram = :instagram, vk = :vk WHERE users.id=:id";
     $statement = $pdo->prepare($sql);
     $statement->execute(['telegram' => $telegram, 'instagram' => $instagram, 'vk' => $vk, 'id'=>$id]);
 
+}
+
+/**
+ *  Parameters:
+ *          string $edit_user_id
+ *  Description: Проверяем что поользователь которого редактируют, редактирует его владелец
+ *  Return value: true || false
+ */
+function is_author($edit_user_id): bool
+{
+    if($edit_user_id === $_SESSION['user']['id']){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
+function log_out(){
+    unset($_SESSION['user']);
 }

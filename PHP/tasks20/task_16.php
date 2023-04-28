@@ -38,7 +38,7 @@
                                 <div class="form-group">
                                     <?php if (isset($_SESSION['unset'])): ?>
                                     <div class="alert alert-danger fade show" role="alert">
-                                        <?php echo $_SESSION['message']; unset($_SESSION['unset']) ?>
+                                        <?php echo $_SESSION['unset']; unset($_SESSION['unset']); ?>
                                     </div>
                                         <a href="task_16_unset.php?unset=1" id="unset" class="btn btn-info">Вoйти</a>
                                     <?php else: ?>

@@ -1,3 +1,19 @@
+<?php
+session_start();
+require "functions.php";
+$_SESSION['edit_user_id']=$_GET['id'];
+$users = get_users();
+
+if(is_not_logged_in()){
+    redirect_to('page_login.php');
+}
+
+if(!is_admin($_SESSION['user']) && !is_author($_GET['id'])){
+    set_flash_message('danger', 'Можно редактировать только свою страницу!');
+    redirect_to('users.php');
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,11 +38,13 @@
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">
+                <?php if (empty($_SESSION['user'])): ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="page_login.php">Войти</a>
+                    </li>
+                <?php endif; ?>
                 <li class="nav-item">
-                    <a class="nav-link" href="page_login.php">Войти</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Выйти</a>
+                    <a class="nav-link" href="page_login.php?log_out">Выйти</a>
                 </li>
             </ul>
         </div>
@@ -38,7 +56,9 @@
             </h1>
 
         </div>
-        <form action="">
+        <?php foreach ($users as $user):
+            if ($user['id']==$_GET['id']):?>
+        <form action="edit_back.php" method="post">
             <div class="row">
                 <div class="col-xl-6">
                     <div id="panel-1" class="panel">
@@ -50,28 +70,28 @@
                                 <!-- username -->
                                 <div class="form-group">
                                     <label class="form-label" for="simpleinput">Имя</label>
-                                    <input type="text" id="simpleinput" class="form-control" value="Иван иванов">
+                                    <input name="username" type="text" id="simpleinput" class="form-control" value="<?php echo $user['username'] ?>">
                                 </div>
 
                                 <!-- title -->
                                 <div class="form-group">
                                     <label class="form-label" for="simpleinput">Место работы</label>
-                                    <input type="text" id="simpleinput" class="form-control" value="Marlin Веб-разработчик">
+                                    <input name="job_title" type="text" id="simpleinput" class="form-control" value="<?php echo $user['job_title'] ?>">
                                 </div>
 
                                 <!-- tel -->
                                 <div class="form-group">
                                     <label class="form-label" for="simpleinput">Номер телефона</label>
-                                    <input type="text" id="simpleinput" class="form-control" value="8 888 8888 88">
+                                    <input name="phone" type="text" id="simpleinput" class="form-control" value="<?php echo $user['phone'] ?>">
                                 </div>
 
                                 <!-- address -->
                                 <div class="form-group">
                                     <label class="form-label" for="simpleinput">Адрес</label>
-                                    <input type="text" id="simpleinput" class="form-control" value="Восточные Королевства, Штормград">
+                                    <input name="address" type="text" id="simpleinput" class="form-control" value="<?php echo $user['address'] ?>">
                                 </div>
                                 <div class="col-md-12 mt-3 d-flex flex-row-reverse">
-                                    <button class="btn btn-warning">Редактировать</button>
+                                    <button type="submit" class="btn btn-warning">Редактировать</button>
                                 </div>
                             </div>
                         </div>
@@ -79,6 +99,8 @@
                 </div>
             </div>
         </form>
+        <?php endif; ?>
+        <?php endforeach; ?>
     </main>
 
     <script src="js/vendors.bundle.js"></script>

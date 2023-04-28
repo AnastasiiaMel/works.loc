@@ -13,7 +13,7 @@ $job_title = $_POST['job_title'];
 
 $vk = $_POST['vk'];
 $telegram = $_POST['telegram'];
-$instagram = $_POST['instagramm'];
+$instagram = $_POST['instagram'];
 
 $avatar = $_FILES['avatar']['name'];
 $tmp_avatar = $_FILES['avatar']['tmp_name'];
