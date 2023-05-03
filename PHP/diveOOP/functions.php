@@ -229,6 +229,7 @@ function upload_avatar($avatar, $tmp_avatar, $id){
     $sql = "UPDATE `users` set image = :avatar WHERE users.id=:id";
     $statement = $pdo->prepare($sql);
     $statement->execute(['avatar'=> $new_tmp, 'id'=>$id]);
+    $statement->fetch(PDO::FETCH_ASSOC);
 
 }
 

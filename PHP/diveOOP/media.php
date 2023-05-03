@@ -1,3 +1,19 @@
+<?php
+session_start();
+require "functions.php";
+$_SESSION['edit_user_id']=$_GET['id'];
+
+$users = get_users();
+if(is_not_logged_in()){
+    redirect_to('page_login.php');
+}
+
+if(!is_admin($_SESSION['user']) && !is_author($_GET['id'])){
+    set_flash_message('danger', 'Можно редактировать только свою страницу!');
+    redirect_to('users.php');
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,15 +34,17 @@
         <div class="collapse navbar-collapse" id="navbarColor02">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Главная <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="users.php">Главная <span class="sr-only">(current)</span></a>
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">
+                <?php if (empty($_SESSION['user'])): ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="page_login.php">Войти</a>
+                    </li>
+                <?php endif; ?>
                 <li class="nav-item">
-                    <a class="nav-link" href="page_login.php">Войти</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Выйти</a>
+                    <a class="nav-link" href="page_login.php?log_out">Выйти</a>
                 </li>
             </ul>
         </div>
@@ -38,7 +56,7 @@
             </h1>
 
         </div>
-        <form action="">
+        <form action="media_back.php" method="post" enctype="multipart/form-data">
             <div class="row">
                 <div class="col-xl-6">
                     <div id="panel-1" class="panel">
@@ -46,19 +64,32 @@
                             <div class="panel-hdr">
                                 <h2>Текущий аватар</h2>
                             </div>
+                            <?php
+                            foreach ($users as $user){
+                                if ($user['id'] == $_SESSION['edit_user_id']){
+                                    $edit_user_avatar = $user;
+                                }
+                            }
+                            ?>
+
                             <div class="panel-content">
+
                                 <div class="form-group">
-                                    <img src="img/demo/authors/josh.png" alt="" class="img-responsive" width="200">
+                                    <?php if(!empty($edit_user_avatar['image'])): ?>
+                                    <img src="<?php echo $edit_user_avatar['image']?>" alt="" class="img-responsive" width="200">
+                                    <?php else:  ?>
+                                    <img src="img/demo/avatars/no_photo.jpg" alt="" class="img-responsive" width="200">
+                                    <?php endif; ?>
                                 </div>
 
                                 <div class="form-group">
                                     <label class="form-label" for="example-fileinput">Выберите аватар</label>
-                                    <input type="file" id="example-fileinput" class="form-control-file">
+                                    <input name="new_avatar" type="file" id="example-fileinput" class="form-control-file">
                                 </div>
 
 
                                 <div class="col-md-12 mt-3 d-flex flex-row-reverse">
-                                    <button class="btn btn-warning">Загрузить</button>
+                                    <button type="submit" class="btn btn-warning">Загрузить</button>
                                 </div>
                             </div>
                         </div>

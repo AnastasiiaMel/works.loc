@@ -64,7 +64,9 @@ if(is_not_logged_in()){
                             <div class="col-12">
                                 <div class="d-flex flex-column align-items-center justify-content-center p-4">
 
-
+                                    <?php if (empty($user['image'])): ?>
+                                    <img src="img/demo/avatars/no_photo.jpg" class="rounded-circle shadow-2 img-thumbnail" alt="">
+                                    <?php endif; ?>
                                     <img src="<?php echo $user['image'] ?>" class="rounded-circle shadow-2 img-thumbnail" alt="">
                                     <h5 class="mb-0 fw-700 text-center mt-3">
                                         <?php echo $user['username'] ?>

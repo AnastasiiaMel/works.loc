@@ -115,7 +115,7 @@ if(is_not_logged_in()){
                                         <a class="dropdown-item" href="status.php?id=<?php echo $user['id'] ?>">
                                             <i class="fa fa-sun"></i>
                                         Установить статус</a>
-                                        <a class="dropdown-item" href="media.html">
+                                        <a class="dropdown-item" href="media.php?id=<?php echo $user['id'] ?>">
                                             <i class="fa fa-camera"></i>
                                             Загрузить аватар
                                         </a>
