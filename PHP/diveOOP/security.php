@@ -1,3 +1,23 @@
+<?php
+session_start();
+require "functions.php";
+$_SESSION['edit_user_id']=$_GET['id'];
+$users = get_users();
+
+if(is_not_logged_in()){
+    redirect_to('page_login.php');
+}
+
+if(!is_admin($_SESSION['user']) && !is_author($_GET['id'])){
+    set_flash_message('danger', 'Можно редактировать только свою страницу!');
+    redirect_to('users.php');
+}
+
+var_dump($_SESSION);
+var_dump($_GET);
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,15 +38,17 @@
         <div class="collapse navbar-collapse" id="navbarColor02">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Главная <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="users.php">Главная <span class="sr-only">(current)</span></a>
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">
+                <?php if (empty($_SESSION['user'])): ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="page_login.php">Войти</a>
+                    </li>
+                <?php endif; ?>
                 <li class="nav-item">
-                    <a class="nav-link" href="page_login.php">Войти</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Выйти</a>
+                    <a class="nav-link" href="page_login.php?log_out">Выйти</a>
                 </li>
             </ul>
         </div>
@@ -38,7 +60,10 @@
             </h1>
 
         </div>
-        <form action="">
+
+
+        <form action="security_back.php" method="post">
+
             <div class="row">
                 <div class="col-xl-6">
                     <div id="panel-1" class="panel">
@@ -46,36 +71,45 @@
                             <div class="panel-hdr">
                                 <h2>Обновление эл. адреса и пароля</h2>
                             </div>
+
+                            <?php display_flash_message('danger');?>
                             <div class="panel-content">
+
                                 <!-- email -->
                                 <div class="form-group">
+                                    <?php foreach ($users as $user):?>
+                                    <?php if ($user['id']==$_GET['id']):?>
                                     <label class="form-label" for="simpleinput">Email</label>
-                                    <input type="text" id="simpleinput" class="form-control" value="john@example.com">
+                                    <input  name="email" type="email" id="simpleinput" class="form-control" value="<?php echo $user['email'] ?>">
+                                        <?php endif; ?>
+                                    <?php endforeach; ?>
                                 </div>
 
                                 <!-- password -->
                                 <div class="form-group">
                                     <label class="form-label" for="simpleinput">Пароль</label>
-                                    <input type="password" id="simpleinput" class="form-control">
+                                    <input name="password" type="password" id="simpleinput" class="form-control">
                                 </div>
 
                                 <!-- password confirmation-->
                                 <div class="form-group">
                                     <label class="form-label" for="simpleinput">Подтверждение пароля</label>
-                                    <input type="password" id="simpleinput" class="form-control">
+                                    <input name="repeat_password" type="password" id="simpleinput" class="form-control">
                                 </div>
 
 
                                 <div class="col-md-12 mt-3 d-flex flex-row-reverse">
-                                    <button class="btn btn-warning">Изменить</button>
+                                    <button type="submit" class="btn btn-warning">Изменить</button>
                                 </div>
                             </div>
+
                         </div>
-                        
                     </div>
                 </div>
             </div>
+
         </form>
+
     </main>
 
     <script src="js/vendors.bundle.js"></script>

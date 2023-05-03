@@ -109,7 +109,7 @@ if(is_not_logged_in()){
                                         <a class="dropdown-item" href="edit.php?id=<?php echo $user['id'] ?>">
                                             <i class="fa fa-edit"></i>
                                         Редактировать</a>
-                                        <a class="dropdown-item" href="security.html">
+                                        <a class="dropdown-item" href="security.php?id=<?php echo $user['id'] ?>">
                                             <i class="fa fa-lock"></i>
                                         Безопасность</a>
                                         <a class="dropdown-item" href="status.html">

@@ -268,3 +268,17 @@ function is_author($edit_user_id): bool
 function log_out(){
     unset($_SESSION['user']);
 }
+
+function edit_credentials($id, $email, $password){
+    $pdo = new PDO('mysql:host=localhost;dbname=my_project', 'root', '');
+    if(empty($password)){
+        $sql = "UPDATE `users` set email = :email WHERE users.id=:id";
+        $statement = $pdo->prepare($sql);
+        $statement->execute(['email' => $email, 'id'=>$id]);
+    }
+    else {
+        $sql = "UPDATE `users` set email = :email, password = :password WHERE users.id=:id";
+        $statement = $pdo->prepare($sql);
+        $statement->execute(['email' => $email, 'password' => password_hash($password, PASSWORD_DEFAULT), 'id' => $id]);
+    }
+}

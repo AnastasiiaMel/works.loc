@@ -39,7 +39,7 @@ if(is_not_logged_in()){
                     </li>
                     <?php endif; ?>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Выйти</a>
+                        <a class="nav-link" href="page_login.php?log_out">Выйти</a>
                     </li>
                 </ul>
             </div>
