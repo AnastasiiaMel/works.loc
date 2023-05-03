@@ -266,10 +266,26 @@ function is_author($edit_user_id): bool
     }
 }
 
+/**
+ *  Parameters:
+ *
+ *  Description: Очищает сессию
+ *  Return value:
+ */
 function log_out(){
     unset($_SESSION['user']);
+    unset($_SESSION['edit_user_id']);
+    unset($_GET);
 }
 
+/**
+ *  Parameters:
+ *          string $id
+ *          string $email
+ *          string password
+ *  Description: Изменяем у пользователя логин или пароль
+ *  Return value:
+ */
 function edit_credentials($id, $email, $password){
     $pdo = new PDO('mysql:host=localhost;dbname=my_project', 'root', '');
     if(empty($password)){
@@ -282,4 +298,25 @@ function edit_credentials($id, $email, $password){
         $statement = $pdo->prepare($sql);
         $statement->execute(['email' => $email, 'password' => password_hash($password, PASSWORD_DEFAULT), 'id' => $id]);
     }
+}
+
+/**
+ *  Parameters:
+ *          string $id
+ *  Description: Удаляем профиль
+ *  Return value:
+ */
+function delete_profile($id){
+    $users = get_users();
+    foreach ($users as $user){
+        if($id==$user['id']);
+        $avatar = $user;
+    }
+    unlink($avatar['image']);
+
+
+    $pdo = new PDO('mysql:host=localhost;dbname=my_project', 'root', '');
+    $sql = "DELETE FROM `users` WHERE users.id=:id";
+    $statement = $pdo->prepare($sql);
+    $statement->execute(['id'=>$id]);
 }

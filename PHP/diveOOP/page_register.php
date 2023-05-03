@@ -65,7 +65,7 @@ require 'functions.php';
                             <div class="col-xl-6 ml-auto mr-auto">
                                 <div class="card p-4 rounded-plus bg-faded">
                                     <?php display_flash_message("danger");?>
-
+                                    <?php display_flash_message("success");?>
 
                                     <form id="js-login" novalidate="" method="post" action="register.php">
                                         <div class="form-group">
