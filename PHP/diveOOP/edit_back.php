@@ -16,4 +16,4 @@ $phone = $_POST['phone'];
 edit($username, $job_title, $phone, $address, $edit_user_id);
 
 set_flash_message('success', 'Профиль успешно обновлен');
-redirect_to('page_profile.php');
+redirect_to('page_profile.php?id='.$edit_user_id);
