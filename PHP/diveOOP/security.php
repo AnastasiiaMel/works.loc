@@ -13,8 +13,6 @@ if(!is_admin($_SESSION['user']) && !is_author($_GET['id'])){
     redirect_to('users.php');
 }
 
-var_dump($_SESSION);
-var_dump($_GET);
 ?>
 
 

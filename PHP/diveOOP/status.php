@@ -1,3 +1,25 @@
+<?php
+session_start();
+require "functions.php";
+$_SESSION['edit_user_id']=$_GET['id'];
+$users = get_users();
+if(is_not_logged_in()){
+    redirect_to('page_login.php');
+}
+
+if(!is_admin($_SESSION['user']) && !is_author($_GET['id'])){
+    set_flash_message('danger', 'Можно редактировать только свою страницу!');
+    redirect_to('users.php');
+}
+
+$status_values = [
+        'success' => 'Онлайн',
+        'warning' => 'Отошел',
+        'danger' => 'Не беспокойть'
+    ];
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,15 +40,17 @@
         <div class="collapse navbar-collapse" id="navbarColor02">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Главная <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="users.php">Главная <span class="sr-only">(current)</span></a>
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">
+                <?php if (empty($_SESSION['user'])): ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="page_login.php">Войти</a>
+                    </li>
+                <?php endif; ?>
                 <li class="nav-item">
-                    <a class="nav-link" href="page_login.php">Войти</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Выйти</a>
+                    <a class="nav-link" href="page_login.php?log_out">Выйти</a>
                 </li>
             </ul>
         </div>
@@ -38,7 +62,7 @@
             </h1>
 
         </div>
-        <form action="">
+        <form action="status_back.php" method="post">
             <div class="row">
                 <div class="col-xl-6">
                     <div id="panel-1" class="panel">
@@ -52,11 +76,21 @@
                                         <!-- status -->
                                         <div class="form-group">
                                             <label class="form-label" for="example-select">Выберите статус</label>
-                                            <select class="form-control" id="example-select">
-                                                <option>Онлайн</option>
-                                                <option>Отошел</option>
-                                                <option>Не беспокоить</option>
+                                                <?php
+                                                foreach ($users as $user){
+                                                    if ($user['id'] == $_SESSION['edit_user_id']){
+                                                        $edit_user = $user;
+                                                    }
+                                                }
+                                                ?>
+                                            <select name="status" class="form-control" id="example-select">
+                                                <?php foreach ($status_values as $key => $value):  ?>
+
+
+                                                <option <?php if ($edit_user['status']==$key){echo 'selected';} ?> value="<?php echo $key ?>"><?php echo $value ?></option>
+                                                <?php endforeach; ?>
                                             </select>
+
                                         </div>
                                     </div>
                                     <div class="col-md-12 mt-3 d-flex flex-row-reverse">

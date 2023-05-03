@@ -112,7 +112,7 @@ if(is_not_logged_in()){
                                         <a class="dropdown-item" href="security.php?id=<?php echo $user['id'] ?>">
                                             <i class="fa fa-lock"></i>
                                         Безопасность</a>
-                                        <a class="dropdown-item" href="status.html">
+                                        <a class="dropdown-item" href="status.php?id=<?php echo $user['id'] ?>">
                                             <i class="fa fa-sun"></i>
                                         Установить статус</a>
                                         <a class="dropdown-item" href="media.html">
