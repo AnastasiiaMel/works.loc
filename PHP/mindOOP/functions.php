@@ -6,12 +6,8 @@ function dd($data){
     die;
 }
 
-function getAllPosts()
-{
+function connect_to_db(){
     $pdo = new PDO('mysql:host=localhost;dbname=app3;charset=utf8', 'root', '');
-    $sql = 'SELECT * FROM posts';
-    $statement = $pdo->prepare($sql);
-    $statement->execute();
-    $posts = $statement->fetchAll(PDO::FETCH_ASSOC);
-    return $posts;
+    return $pdo;
 }
+
