@@ -1,3 +1,19 @@
+<?php
+function dd($data){
+    echo '<pre>';
+    var_dump($data);
+    echo '<pre>';
+    die;
+}
+
+$pdo = new PDO('mysql:host=localhost;dbname=app3;charset=utf8', 'root', '' );
+$sql = 'SELECT * FROM posts';
+$statement = $pdo->prepare($sql);
+$statement->execute();
+$posts = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+
+?>
 <!DOCTYPE html>
 <html land="en">
 <head>
@@ -40,14 +56,17 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Lorem ipsum dolor.</td>
-                    <td>
-                        <a href="#" class="btn btn-warning">Edit</a>
-                        <a href="#" class="btn btn-danger" >Delete</a>
-                    </td>
-                </tr>
+                <?php foreach ($posts as $post): ?>
+                    <tr>
+                        <th scope="row"><?php echo $post['id'];?></th>
+                        <td><?php echo $post['title'];?></td>
+                        <td>
+                            <a href="#" class="btn btn-warning">Edit</a>
+                            <a href="#" class="btn btn-danger" >Delete</a>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+
 
                 </tbody>
             </table>
