@@ -1,8 +1,9 @@
 <?php
-include 'database/QueryBuilder.php';
-include 'database/Connection.php';
+$config = include 'config.php';
+include 'QueryBuilder.php';
+include 'Connection.php';
 
 
 return new QueryBuilder(
-    Connection::make()
+    Connection::make($config['database'])
 );
