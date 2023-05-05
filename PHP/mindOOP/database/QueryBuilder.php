@@ -14,6 +14,15 @@ class QueryBuilder{
 
     }
 
+    public function getOne($table, $id){
+       $sql = "SELECT * FROM posts WHERE id=:id";
+      $statement = $this->pdo->prepare($sql);
+      $statement->bindValue(':id', $id);
+      $statement->execute();
+      $result = $statement-> fetch(PDO::FETCH_ASSOC );
+      return $result;
+    }
+
     public function create($table, $data){
         $keys = implode(',', array_keys($data));
         $tags = ':' . implode(', :', array_keys($data));
@@ -24,5 +33,7 @@ class QueryBuilder{
         $statement = $this->pdo->prepare($sql);
         $statement->execute($data);
     }
+
+
 
 }
