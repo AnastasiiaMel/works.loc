@@ -1,0 +1,4 @@
+Options +FollowSymLinks
+RewriteEngine On
+
+RewriteRule ^.*mindOOP.*$ PHP/mindOOP/public/index.php [L]

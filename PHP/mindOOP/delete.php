@@ -8,4 +8,4 @@ $id = $_GET['id'];
 
 $db->delete('posts', $id);
 
-header('Location: index.php');
+header('Location: public/index.php');
