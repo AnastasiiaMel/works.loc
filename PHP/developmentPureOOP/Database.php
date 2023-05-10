@@ -1,9 +1,12 @@
 <?php
-class Database{
-    private static $instance = null;
-    private $pdo, $query, $eror = false, $results, $count;
 
-    private function __construct(){
+class Database
+{
+    private static $instance = null;
+    private $pdo, $query, $error = false, $results, $count;
+
+    private function __construct()
+    {
         try {
             $this->pdo = new PDO('mysql:host=localhost;dbname=test_test', 'root', '');
         } catch (PDOException $exception) {
@@ -11,45 +14,47 @@ class Database{
         }
     }
 
-    public static function getInstance(){
-        if(!isset(self::$instance)) {
+    public static function getInstance()
+    {
+        if (!isset(self::$instance)) {
             self::$instance = new Database();
         }
         return self::$instance;
     }
 
-    public function query($sql, $params = []){
+    public function query($sql, $params = [])
+    {
 
-        $this->eror=false;
-     $this->query = $this->pdo->prepare($sql);
-     if(count($params)){
-         $i=1;
-         foreach ($params as $param){
-             $this->query->bindValue($i, $param);
-             $i++;
-         }
-     }
-
-
-
-     if(!$this->query->execute()){
-         $this->eror = true;
-     } else {
-         $this->results = $this->query->fetchAll(PDO::FETCH_OBJ);
-         $this->count = $this->query->rowCount();
-     }
-     return $this;
+        $this->error = false;
+        $this->query = $this->pdo->prepare($sql);
+        if (count($params)) {
+            $i = 1;
+            foreach ($params as $param) {
+                $this->query->bindValue($i, $param);
+                $i++;
+            }
+        }
+        if (!$this->query->execute()) {
+            $this->error = true;
+        } else {
+            $this->results = $this->query->fetchAll(PDO::FETCH_OBJ);
+            $this->count = $this->query->rowCount();
+        }
+        return $this;
     }
 
-    public function error(){
-        return $this->eror;
+    public function error()
+    {
+        return $this->error;
     }
 
-    public function results(){
+    public function results()
+    {
         return $this->results;
     }
 
-    public function count(){
+    public function count()
+    {
         return $this->count;
     }
 }

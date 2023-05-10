@@ -4,6 +4,7 @@ $users = Database::getInstance()->query("SELECT * FROM users WHERE username IN (
 //Database::getInstance()->get('users', ['username', '=', 'marlin']);
 //Database::getInstance()->delete('users', ['username', '=', 'marlin']);
 
+
 if($users->error()){
     echo 'We have an error';
 }
