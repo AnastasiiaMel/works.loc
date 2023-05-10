@@ -88,4 +88,21 @@ class Database
         }
 
 
+        public function insert($table, $fields=[]){
+
+        $values = '';
+        foreach ($fields as $field){
+            $values .= "?,";
+        }
+        $values = rtrim($values, ',');
+
+        $sql = "INSERT INTO {$table} (`" . implode('` , `',  array_keys($fields)) . "`) VALUES (". $values .") ";
+
+        if (!$this->query($sql, $fields)->error()){
+            return true;
+        }
+            return false;
+
+
+        }
 }
