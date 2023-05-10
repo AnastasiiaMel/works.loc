@@ -18,9 +18,20 @@ class Database{
         return self::$instance;
     }
 
-    public function query($sql){
+    public function query($sql, $params = []){
+
         $this->eror=false;
      $this->query = $this->pdo->prepare($sql);
+     if(count($params)){
+         $i=1;
+         foreach ($params as $param){
+             $this->query->bindValue($i, $param);
+             $i++;
+         }
+     }
+
+
+
      if(!$this->query->execute()){
          $this->eror = true;
      } else {
