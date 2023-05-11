@@ -1,5 +1,6 @@
 <?php
 require_once 'Database.php';
+require_once 'Config.php';
 //$users = Database::getInstance()->query("SELECT * FROM users WHERE username IN (?,?)", ['John Doe', 'Jane Koe']);
 //$users=Database::getInstance()->get('users', ['password', '=', 'password']);
 //Database::getInstance()->delete('users', ['username', '=', 'Jane Koe']);
@@ -14,8 +15,8 @@ require_once 'Database.php';
     //'password' => 'password2'
 //]);
 
-$users=Database::getInstance()->get('users', ['username', '=', 'Marlin2']);
-echo $users->first()->username;
+//$users=Database::getInstance()->get('users', ['username', '=', 'Marlin2']);
+//echo $users->first()->username;
 
 //if($users->error()){
   //  echo 'We have an error';
@@ -25,5 +26,20 @@ echo $users->first()->username;
     //}
 //}
 
+$GLOBALS['config'] = [
+    'mysql' => [
+        'host' => 'localhost',
+        'username' => 'root',
+        'password' => '',
+        'database' => 'test_test',
+        'something' => [
+            'no' => 'yes'
+        ]
+    ]
+];
+
+//echo Config::get('mysql.host');
+$users = Database::getInstance()->query('select * from users');
+var_dump($users->results());
 
 
