@@ -8,6 +8,7 @@ require_once 'Input.php';
 require_once 'Token.php';
 require_once 'Session.php';
 require_once 'User.php';
+require_once 'Redirect.php';
 
 //$users = Database::getInstance()->query("SELECT * FROM users WHERE username IN (?,?)", ['John Doe', 'Jane Koe']);
 //$users=Database::getInstance()->get('users', ['password', '=', 'password']);
@@ -52,7 +53,8 @@ $GLOBALS['config'] = [
 //echo Config::get('mysql.host');
 //$users = Database::getInstance()->query('select * from users');
 //var_dump($users->results());
-
+//Redirect::to('test.php');
+Redirect::to(404);
 
 if (Input::exists()){
     if (Token::check(Input::get('token'))) {
@@ -86,6 +88,7 @@ if (Input::exists()){
 
             Session::flash('success', 'register success');
             //header('Location:/test.php');
+
         } else {
             foreach ($validation->errors() as $error) {
                 echo $error . '<br>';
