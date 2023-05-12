@@ -1,6 +1,7 @@
 <?php
+require_once 'init.php';
 
-
+var_dump(Session::get(Config::get('session.user_session')));
 //$users = Database::getInstance()->query("SELECT * FROM users WHERE username IN (?,?)", ['John Doe', 'Jane Koe']);
 //$users=Database::getInstance()->get('users', ['password', '=', 'password']);
 //Database::getInstance()->delete('users', ['username', '=', 'Jane Koe']);
