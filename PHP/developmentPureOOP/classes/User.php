@@ -1,12 +1,13 @@
 <?php
 
 class User{
-    private $db, $data, $session_name, $isLoggedIn;
+    private $db, $data, $session_name, $isLoggedIn, $cookie_name;
 
     public function __construct($user= null)
     {
         $this->db = Database::getInstance();
         $this->session_name = Config::get('session.user_session');
+        $this->cookie_name = Config::get('cookie.cookie_name');
 
         if (!$user) {
             if (Session::exists($this->session_name)){
@@ -49,7 +50,7 @@ class User{
                                 $hash = $hashCheck->first()->hash;
                             }
 
-                            Cookie::put($this->cookieName, $hash, Config::get('cookie.cookie_expiry'));
+                            Cookie::put($this->cookie_name, $hash, Config::get('cookie.cookie_expiry'));
                     }
                         return true;
                 }
@@ -79,6 +80,12 @@ class User{
     }
 
     public function isLogout(){
-        return Session::delete($this->session_name);
+        $this->db->delete('user_session', ['user_id', '=', $this->data()->id]);
+        Session::delete($this->session_name);
+        Cookie::delete($this->cookie_name);
+    }
+
+    public function exists(){
+        return (!empty($this->data())) ? true : false;
     }
 }
