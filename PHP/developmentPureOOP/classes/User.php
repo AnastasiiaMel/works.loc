@@ -88,4 +88,13 @@ class User{
     public function exists(){
         return (!empty($this->data())) ? true : false;
     }
+
+    public function update($fields = [], $id = null){
+
+        if (!$id && $this->isLoggedIn()){
+            $id = $this->data()->id;
+        }
+
+        $this->db->update('users', $id, $fields);
+    }
 }
