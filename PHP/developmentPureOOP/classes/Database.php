@@ -67,6 +67,7 @@ class Database
     }
 
     public function action($action, $table, $where=[]){
+
             if(count($where)===3){
 
 
@@ -79,12 +80,18 @@ class Database
                     $sql = "{$action} FROM {$table} WHERE {$field} {$operator} ?";
 
                     if (!$this->query($sql, [$value])->error()){
+
                         return $this;
                     }
+                    var_dump($this);die();
                 }
-            }else{
+
+            }
+            else{
+
                 return false;
             }
+
         }
 
 
