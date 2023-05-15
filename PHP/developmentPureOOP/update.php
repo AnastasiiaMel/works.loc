@@ -1,4 +1,5 @@
 <?php
+require_once 'init.php';
 $user = new User();
 $validate = new Validate();
 $validate->check($_POST, [
