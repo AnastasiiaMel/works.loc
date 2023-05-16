@@ -1,5 +1,7 @@
 <?php
 namespace App\controllers;
+use App\exceptions\AccountsBlockedException;
+use App\exceptions\NotEnoughMoneyException;
 use App\QueryBuilder;
 use Exception;
 use League\Plates\Engine;
@@ -27,9 +29,11 @@ class HomeController{
 
         try{
            $this -> withdrow($vars['amount']);
-        }catch (Exception $exception){
-            flash()->error($exception->getMessage());
+        }catch (NotEnoughMoneyException $exception){
+            flash()->error("Ваш баланс меньше чем ".$vars['amount']);
 
+        }catch (AccountsBlockedException $exception){
+            flash()->error("Ваш аккаунт временно заблокирован");
         }
 
 
@@ -42,10 +46,12 @@ class HomeController{
     public function withdrow($amount = 1){
         $total = 10;
 
+        //throw new AccountsBlockedException('Your account is blocked');
+
         if($amount>$total){
             // .. Exception
 
-            throw  new Exception('Недостаточно средств');
+            throw  new NotEnoughMoneyException('Your balance is less than '.$amount);
         }
     }
 
