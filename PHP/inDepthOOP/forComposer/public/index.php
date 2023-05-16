@@ -1,6 +1,7 @@
 <?php
 
 require "../../vendor/autoload.php";
+use Illuminate\Support\Arr;
 
 $dispatcher = FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $r) {
     $r->addRoute('GET', '/PHP/inDepthOOP/forComposer/home', ['App\controllers\HomeController', 'index']);
@@ -42,9 +43,12 @@ switch ($routeInfo[0]) {
         break;
 }
 
-
-
-
+$array = [
+   [ "marlin" => ["course" => "HTML"]],
+    ["marlin" => ["course" => "PHP"]]
+];
+$result = Arr::pluck($array, 'marlin.course');
+var_dump($result);
 
 
 
