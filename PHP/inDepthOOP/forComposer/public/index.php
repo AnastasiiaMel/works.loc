@@ -3,9 +3,10 @@
 require "../../vendor/autoload.php";
 
 $dispatcher = FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $r) {
-    $r->addRoute('GET', '/PHP/inDepthOOP/forComposer/users', 'get_all_users_handler');
+    $r->addRoute('GET', '/PHP/inDepthOOP/forComposer/users', ['App\controllers\HomeController', 'index']);
     // {id} must be a number (\d+)
-    $r->addRoute('GET', '/PHP/inDepthOOP/forComposer/user/{id:\d+}', 'get_user_handler');
+    $r->addRoute('GET', '/PHP/inDepthOOP/forComposer/user/{id:\d+}', ['App\controllers\HomeController', 'index']);
+    $r->addRoute('GET', '/PHP/inDepthOOP/forComposer/users/{id:\d+}/company/classes/school/{number:\d+}', ['App\controllers\HomeController', 'about']);
     // The /{title} suffix is optional
     $r->addRoute('GET', '/PHP/inDepthOOP/forComposer/articles/{id:\d+}[/{title}]', 'get_article_handler');
 });
@@ -33,15 +34,13 @@ switch ($routeInfo[0]) {
         break;
     case FastRoute\Dispatcher::FOUND:
         $handler = $routeInfo[1];
-
         $vars = $routeInfo[2];
-        call_user_func($handler, $vars);
+        $controller = new $handler[0];
+
+        call_user_func([$controller, $handler[1]], $vars);
         break;
 }
 
-function get_user_handler($vars){
-    d($vars['id']);
-}
 
 
 
@@ -78,7 +77,7 @@ function get_user_handler($vars){
 
 //if ($_SERVER['REQUEST_URI']=='/PHP/inDepthOOP/forComposer/home'){
 
-  //  require '../app/controllers/homepage.php';
+  //  require '../app/controllers/HomeController.php';
 //}
 
 //exit;
