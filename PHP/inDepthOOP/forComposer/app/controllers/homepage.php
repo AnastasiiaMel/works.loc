@@ -14,4 +14,4 @@ $db = new QueryBuilder();
 //$findOne = $db->findOne(['title'],'posts', 15);
 //var_dump($findOne);
 
-$db->delete('posts', 15);
+//$db->delete('posts', 15);
