@@ -1,11 +1,15 @@
 <?php
-
+if( !session_id() ) {
+    session_start();
+}
 require "../../vendor/autoload.php";
+
+
 use Illuminate\Support\Arr;
 
 $dispatcher = FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $r) {
     $r->addRoute('GET', '/PHP/inDepthOOP/forComposer/home', ['App\controllers\HomeController', 'index']);
-    $r->addRoute('GET', '/PHP/inDepthOOP/forComposer/about', ['App\controllers\HomeController', 'about']);
+    $r->addRoute('GET', '/PHP/inDepthOOP/forComposer/about/{amount:\d+}', ['App\controllers\HomeController', 'about']);
     // {id} must be a number (\d+)
     //$r->addRoute('GET', '/PHP/inDepthOOP/forComposer/user/{id:\d+}', ['App\controllers\HomeController', 'index']);
     //$r->addRoute('GET', '/PHP/inDepthOOP/forComposer/users/{id:\d+}/company/classes/school/{number:\d+}', ['App\controllers\HomeController', 'about']);
@@ -48,7 +52,7 @@ $array = [
     ["marlin" => ["course" => "PHP"]]
 ];
 $result = Arr::pluck($array, 'marlin.course');
-var_dump($result);
+//var_dump($result);
 
 
 

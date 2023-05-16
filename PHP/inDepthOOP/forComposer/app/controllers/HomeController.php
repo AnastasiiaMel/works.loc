@@ -1,7 +1,9 @@
 <?php
 namespace App\controllers;
 use App\QueryBuilder;
+use Exception;
 use League\Plates\Engine;
+use function Tamtamchik\SimpleFlash\flash;
 
 class HomeController{
     private $templates;
@@ -23,11 +25,30 @@ class HomeController{
 
     public function about($vars){
 
-        // Render a template
-        echo $this->templates->render('about', ['name' => 'Jonathan about page']);
+        try{
+           $this -> withdrow($vars['amount']);
+        }catch (Exception $exception){
+            flash()->error($exception->getMessage());
+
+        }
+
+
+
+        echo $this->templates->render('about', ['title' => 'Jonathan about page']);
 
 
     }
+
+    public function withdrow($amount = 1){
+        $total = 10;
+
+        if($amount>$total){
+            // .. Exception
+
+            throw  new Exception('Недостаточно средств');
+        }
+    }
+
 }
 
 
