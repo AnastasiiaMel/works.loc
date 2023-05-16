@@ -2,19 +2,26 @@
 
 require "../../vendor/autoload.php";
 
-use Aura\SqlQuery\QueryFactory;
+use App\QueryBuilder;
 
-$queryFactory = new QueryFactory('mysql');
+$db = new QueryBuilder();
 
-$select = $queryFactory->newSelect();
-$select->cols(['*'])->from('posts');
-
+var_dump($db);
 
 
-$pdo = new PDO('mysql:host=localhost;dbname=app3', 'root', '');
-$sth = $pdo->prepare($select->getStatement());
-$sth->execute($select->getBindValues());
-$result = $sth->fetchAll(PDO::FETCH_ASSOC);
 
-var_dump($result);
+
+
+
+
+
+
+
+
+
+//use Aura\SqlQuery\QueryFactory;
+
+//
+
+//var_dump($result);
 //echo 123;
