@@ -2,12 +2,26 @@
 
 require "../../vendor/autoload.php";
 
+use App\QueryBuilder;
+
+$db = new QueryBuilder();
+d($db);
+
+
+
+
+
+
+
+
+
+
 // Create new Plates instance
-$templates = new League\Plates\Engine('../app/views');
+//$templates = new League\Plates\Engine('../app/views');
 
 
 // Render a template
-echo $templates->render('about', ['title' => 'Jonathan']);
+//echo $templates->render('about', ['title' => 'Jonathan']);
 
 
 
