@@ -3,4 +3,4 @@ RewriteEngine On
 
 RewriteRule ^.*mindOOP\/$ PHP/mindOOP/public/index.php [L]
 RewriteRule ^.*inDepthOOP\/blog\/$ PHP/inDepthOOP/blog/public/index.php [L]
-RewriteRule ^.*inDepthOOP\/forComposer\/$ PHP/inDepthOOP/forComposer/public/index.php [L]
+RewriteRule ^.*inDepthOOP\/forComposer\/.*$ PHP/inDepthOOP/forComposer/public/index.php [L]

@@ -1,12 +1,20 @@
 <?php
 
 require "../../vendor/autoload.php";
+if ($_SERVER['REQUEST_URI']=='/PHP/inDepthOOP/forComposer/home'){
 
-use App\QueryBuilder;
+    require '../app/controllers/homepage.php';
+}
 
-$db = new QueryBuilder();
+exit;
 
-var_dump($db);
+
+
+
+
+
+
+
 
 
 
