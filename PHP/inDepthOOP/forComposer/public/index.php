@@ -56,7 +56,29 @@ $array = [
 $result = Arr::pluck($array, 'marlin.course');
 //var_dump($result);
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+$mail = new PHPMailer(true);
 
+$mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
+$mail->isSMTP();                                            //Send using SMTP
+$mail->Host = 'smtp.mail.ru';                     //Set the SMTP server to send through
+$mail->SMTPAuth = true;                                   //Enable SMTP authentication
+$mail->Username = '';                     //SMTP username
+$mail->Password = '';                               //SMTP password
+$mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
+$mail->Port = 465;
+
+$mail->CharSet = "utf-8";
+$mail->addAddress('sanzon2009@yandex.ru', 'Rahim');
+$mail->setFrom('himera905@bk.ru', 'Mailer');
+$mail->isHTML(true);                                  //Set email format to HTML
+$mail->Subject = 'Офигенская тема!';
+$mail->Body    = 'Привет! Как дела?';
+$mail->send();
+
+var_dump($mail);
 
 
 
