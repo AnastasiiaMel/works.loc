@@ -19,7 +19,15 @@ class HomeController{
 
     public function index($vars){
 
-        d($this->auth->getUsername()); die();
+       d($this->auth->getRoles()); die();
+
+        try {
+            $this->auth->admin()->addRoleForUserById('1', \Delight\Auth\Role::ADMIN);
+        }
+        catch (\Delight\Auth\UnknownIdException $e) {
+            die('Unknown user ID');
+        }
+        die();
 
         $db = new QueryBuilder();
 
