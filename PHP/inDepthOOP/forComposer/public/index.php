@@ -55,7 +55,7 @@ $array = [
 ];
 $result = Arr::pluck($array, 'marlin.course');
 //var_dump($result);
-
+/*lesson 20 Email
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
@@ -79,6 +79,51 @@ $mail->Body    = 'Привет! Как дела?';
 $mail->send();
 
 var_dump($mail);
+*/
+
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+</html>
+<body>
+<?php
+require "../../vendor/autoload.php";
+
+use Aura\SqlQuery\QueryFactory;
+
+$faker = Faker\Factory::create();
+
+$pdo = new PDO('mysql:host=localhost; dbname=example01', 'root', '');
+$queryFactory = new QueryFactory('mysql');
+
+/*$insert = $queryFactory->newInsert();
+
+$insert->into('posts');
+for ($i=0; $i<30; $i++){
+    $insert->cols([
+        'title' => $faker->words(3, true),
+        'content' => $faker->text
+    ]);
+    $insert->addRow();
+}
+
+$sth = $pdo ->prepare($insert->getStatement());
+$sth->execute($insert->getBindValues());
+
+$result = $sth->fetch(PDO::FETCH_ASSOC);
+var_dump($result);die();*/
+
+
+
+?>
+</body>
+
+
+
 
 
 
