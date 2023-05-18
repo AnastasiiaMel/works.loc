@@ -10,7 +10,8 @@
     "phpmailer/phpmailer": "^6.8",
     "fakerphp/faker": "^1.22",
     "amstaffix/pagination": "^1.1",
-    "jasongrimes/paginator": "^1.0"
+    "jasongrimes/paginator": "^1.0",
+    "php-di/php-di": "^6.4"
   },
 
   "autoload": {

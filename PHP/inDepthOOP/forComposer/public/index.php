@@ -3,6 +3,10 @@ if( !session_id() ) {
     session_start();
 }
 require "../../vendor/autoload.php";
+use DI\ContainerBuilder;
+
+$containerBuilder = new ContainerBuilder();
+$container = $containerBuilder->build();
 
 
 use Illuminate\Support\Arr;
@@ -43,9 +47,11 @@ switch ($routeInfo[0]) {
     case FastRoute\Dispatcher::FOUND:
         $handler = $routeInfo[1];
         $vars = $routeInfo[2];
-        $controller = new $handler[0];
+        $container->call($routeInfo[1], $routeInfo[2]);
 
-        call_user_func([$controller, $handler[1]], $vars);
+
+       // $controller =new PagesController($engine, $pdo,);
+
         break;
 }
 

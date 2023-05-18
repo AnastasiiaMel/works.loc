@@ -9,17 +9,18 @@ use PDO;
 use function Tamtamchik\SimpleFlash\flash;
 
 class HomeController{
-    private $templates, $auth;
-    public function __construct()
+    private $templates, $auth, $qb;
+    public function __construct(QueryBuilder $qb)
     {
+        $this->qb = $qb;
         $this->templates = new Engine('../app/views');
         $db = new PDO('mysql:host=localhost;dbname=app3', 'root', '');
         $this->auth = new \Delight\Auth\Auth($db);
     }
 
-    public function index($vars){
+    public function index(){
 
-       d($this->auth->getRoles()); die();
+       d($this->qb); die();
 
         try {
             $this->auth->admin()->addRoleForUserById('1', \Delight\Auth\Role::ADMIN);
