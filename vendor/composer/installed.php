@@ -1,0 +1,41 @@
+<?php return array(
+    'root' => array(
+        'name' => '__root__',
+        'pretty_version' => 'dev-main',
+        'version' => 'dev-main',
+        'reference' => '2336d020b407c2fe0a8d7587c17a51a32c448538',
+        'type' => 'library',
+        'install_path' => __DIR__ . '/../../',
+        'aliases' => array(),
+        'dev' => true,
+    ),
+    'versions' => array(
+        '__root__' => array(
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
+            'reference' => '2336d020b407c2fe0a8d7587c17a51a32c448538',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../../',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'amstaffix/pagination' => array(
+            'pretty_version' => '1.1.3',
+            'version' => '1.1.3.0',
+            'reference' => 'c9d08bf11d74167377964b9f64d5cf0cb9782c93',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../amstaffix/pagination',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'jasongrimes/paginator' => array(
+            'pretty_version' => '1.0.3',
+            'version' => '1.0.3.0',
+            'reference' => '3411e3cd0c6479a0b514f26e4358f0273552f221',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../jasongrimes/paginator',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+    ),
+);

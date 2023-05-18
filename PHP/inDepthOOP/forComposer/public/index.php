@@ -117,8 +117,35 @@ $sth->execute($insert->getBindValues());
 $result = $sth->fetch(PDO::FETCH_ASSOC);
 var_dump($result);die();*/
 
+$select = $queryFactory->newSelect();
+$select
+    ->cols(['*'])
+    ->from('posts');
 
+$sth = $pdo->prepare($select->getStatement());
 
+$sth->execute($select->getBindValues());
+$totalIteams = $sth->fetchAll(PDO::FETCH_ASSOC);
+
+$select = $queryFactory->newSelect();
+$select
+    ->cols(['*'])
+    ->from('posts')
+    ->setPaging(3)
+    ->page($_GET['page'] ?? 1);
+$sth = $pdo->prepare($select->getStatement());
+$sth->execute($select->getBindValues());
+
+$items = $sth->fetchAll(PDO::FETCH_ASSOC);
+
+$itemsPerPage = 3;
+$currentPage = $_GET['page'] ?? 1;
+$urlPattern = '?page=(:num)';
+
+$paginator = new \JasonGrimes\Paginator(count($totalIteams), $itemsPerPage, $currentPage, $urlPattern);
+foreach ($items as $item){
+    echo $item['id'] . PHP_EOL . $item['title'] . '<br>';
+}
 ?>
 </body>
 
