@@ -7,20 +7,20 @@ use Exception;
 use League\Plates\Engine;
 use PDO;
 use function Tamtamchik\SimpleFlash\flash;
+use Delight\Auth\Auth;
 
 class HomeController{
     private $templates, $auth, $qb;
-    public function __construct(QueryBuilder $qb)
+    public function __construct(QueryBuilder $qb, Engine $engine, PDO $pdo, Auth $auth)
     {
         $this->qb = $qb;
-        $this->templates = new Engine('../app/views');
-        $db = new PDO('mysql:host=localhost;dbname=app3', 'root', '');
-        $this->auth = new \Delight\Auth\Auth($db);
+        $this->templates = $engine;
+        $this->auth = $auth;
     }
 
     public function index(){
 
-       d($this->qb); die();
+       d($this->auth); die();
 
         try {
             $this->auth->admin()->addRoleForUserById('1', \Delight\Auth\Role::ADMIN);

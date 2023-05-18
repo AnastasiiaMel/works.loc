@@ -4,8 +4,31 @@ if( !session_id() ) {
 }
 require "../../vendor/autoload.php";
 use DI\ContainerBuilder;
+use \Delight\Auth\Auth;
 
 $containerBuilder = new ContainerBuilder();
+$containerBuilder->addDefinitions([
+        Engine::class => function(){
+            return new Engine('../app/views');
+        },
+
+        PDO::class => function(){
+
+            $driver = 'mysql';
+            $host = "localhost";
+            $database_name = "app3";
+            $username = "root";
+            $password = "";
+
+            return new PDO("$driver:host=$host; dbname=$database_name", $username, $password );
+        },
+
+        Auth::class => function($container){
+            return new \Delight\Auth\Auth($container->get('PDO'));
+        }
+
+
+]);
 $container = $containerBuilder->build();
 
 
