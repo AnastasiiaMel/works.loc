@@ -117,6 +117,15 @@ var_dump($mail);
     <meta charset="UTF-8">
     <title>Document</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+    <style>
+        .team .slick-next:before{
+            color: grey;
+        }
+        .team .slick-prev:before{
+            color: grey;
+        }
+    </style>
 </html>
 <body>
 <?php
@@ -125,6 +134,7 @@ require "../../vendor/autoload.php";
 use Aura\SqlQuery\QueryFactory;
 
 $faker = Faker\Factory::create();
+
 
 $pdo = new PDO('mysql:host=localhost; dbname=example01', 'root', '');
 $queryFactory = new QueryFactory('mysql');
@@ -145,6 +155,9 @@ $sth->execute($insert->getBindValues());
 
 $result = $sth->fetch(PDO::FETCH_ASSOC);
 var_dump($result);die();*/
+
+
+
 
 $select = $queryFactory->newSelect();
 $select
@@ -167,17 +180,42 @@ $sth->execute($select->getBindValues());
 
 $items = $sth->fetchAll(PDO::FETCH_ASSOC);
 
+/*foreach ($items as $item) {
+    $update = $queryFactory->newUpdate();
+
+    $width = '150px';
+    $height = '130px';
+
+    $update
+        ->table('posts')                  // update this table
+        ->cols([                        // bind values as "SET bar = :bar"
+            'img'
+        ])
+        ->where('id = :id')           // AND WHERE these conditions
+        ->bindValues([                  // bind these values to the query
+            'img' => $faker->imageUrl($width, $height, 'cats', true, 'Faker', true), // 'http://lorempixel.com/gray/800/400/cats/Faker/' Monochrome image,
+            'id' => $item['id'],
+        ]);
+
+    $sth = $pdo->prepare($update->getStatement());
+
+    $sth->execute($update->getBindValues());
+}*/
 $itemsPerPage = 3;
 $currentPage = $_GET['page'] ?? 1;
 $urlPattern = '?page=(:num)';
 
 $paginator = new \JasonGrimes\Paginator(count($totalIteams), $itemsPerPage, $currentPage, $urlPattern);
-foreach ($items as $item){
-    echo $item['id'] . PHP_EOL . $item['title'] . '<br>';
-}
 ?>
+    <div class="item" style="width: 800px; margin: 50px auto;" >
+   <?php foreach ($totalIteams as $item):?>
+        <div class="img_item"><img class="slick" width="200" height="200" src="<?php echo $item['img']?>"><br><?php echo $item['id'] . PHP_EOL . $item['title']?></div>
+<?php endforeach; ?>
+    </div>
 
-<ul class="pagination">
+
+
+<ul class="pagination ">
     <?php if ($paginator->getPrevUrl()):  ?>
         <li><a href="<?php echo $paginator->getPrevUrl(); ?>">&laquo; Предыдущая</> </li>
     <?php endif; ?>
@@ -205,6 +243,23 @@ foreach ($items as $item){
     -
     <?php echo $paginator->getCurrentPageLastItem() ?>
 </p>
+<script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+<script>
+    $(document).ready(function(){
+        $('.item').slick({
+
+            infinite: true,
+            slidesToShow: 3,
+            slidesToScroll: 3
+        });
+    });
+
+
+
+</script>
 </body>
 </html>
 
