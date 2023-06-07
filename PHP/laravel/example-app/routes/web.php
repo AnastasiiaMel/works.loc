@@ -20,3 +20,11 @@ Route::get('/', function () {
 Route::get('/about', function () {
     return view('about');
 });
+
+Route::get('/create', function (){
+    return view('create');
+});
+
+Route::get('/show', function (){
+    return view('show');
+});
