@@ -1,7 +1,8 @@
 
-button.my_button{
+a.my_button{
     width: 100%;
     margin: 5px 0;
+    display: block !important;
 }
 
 div.gallery_item{

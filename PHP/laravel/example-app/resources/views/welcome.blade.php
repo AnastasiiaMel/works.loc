@@ -8,53 +8,11 @@
 
             <div class="col-md-3 gallery_item">
                 <img src="/image.jpg" alt="" class="img-thumbnail">
-                <button type="button" class="btn btn-info my_button">Info</button>
-                <button type="button" class="btn btn-warning my_button">Warning</button>
-                <button type="button" class="btn btn-danger my_button">Danger</button>
-            </div>
-            <div class="col-md-3 gallery_item">
-                <img src="/image.jpg" alt="" class="img-thumbnail">
-                <button type="button" class="btn btn-info my_button">Info</button>
-                <button type="button" class="btn btn-warning my_button">Warning</button>
-                <button type="button" class="btn btn-danger my_button">Danger</button>
-            </div>
-            <div class="col-md-3 gallery_item">
-                <img src="/image.jpg" alt="" class="img-thumbnail">
-                <button type="button" class="btn btn-info my_button">Info</button>
-                <button type="button" class="btn btn-warning my_button">Warning</button>
-                <button type="button" class="btn btn-danger my_button">Danger</button>
-            </div>
-            <div class="col-md-3 gallery_item">
-                <img src="/image.jpg" alt="" class="img-thumbnail">
-                <button type="button" class="btn btn-info my_button">Info</button>
-                <button type="button" class="btn btn-warning my_button">Warning</button>
-                <button type="button" class="btn btn-danger my_button">Danger</button>
+                <a href="/show" class="btn btn-info my_button">Show</a>
+                <a href="/edit" class="btn btn-warning my_button">Edit</a>
+                <a href="#" class="btn btn-danger my_button">Delete</a>
             </div>
 
-            <div class="col-md-3 gallery_item">
-                <img src="/image.jpg" alt="" class="img-thumbnail">
-                <button type="button" class="btn btn-info my_button">Info</button>
-                <button type="button" class="btn btn-warning my_button">Warning</button>
-                <button type="button" class="btn btn-danger my_button">Danger</button>
-            </div>
-            <div class="col-md-3 gallery_item">
-                <img src="/image.jpg" alt="" class="img-thumbnail">
-                <button type="button" class="btn btn-info my_button">Info</button>
-                <button type="button" class="btn btn-warning my_button">Warning</button>
-                <button type="button" class="btn btn-danger my_button">Danger</button>
-            </div>
-            <div class="col-md-3 gallery_item">
-                <img src="/image.jpg" alt="" class="img-thumbnail">
-                <button type="button" class="btn btn-info my_button">Info</button>
-                <button type="button" class="btn btn-warning my_button">Warning</button>
-                <button type="button" class="btn btn-danger my_button">Danger</button>
-            </div>
-            <div class="col-md-3 gallery_item">
-                <img src="/image.jpg" alt="" class="img-thumbnail">
-                <button type="button" class="btn btn-info my_button">Info</button>
-                <button type="button" class="btn btn-warning my_button">Warning</button>
-                <button type="button" class="btn btn-danger my_button">Danger</button>
-            </div>
         </div>
     </div>
 @endsection
