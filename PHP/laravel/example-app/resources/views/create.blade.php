@@ -5,9 +5,10 @@
         <div class="row">
             <div class="col-md-5">
                 <h1>Add image</h1>
-                <form action="" method="post">
+                <form action="/store" method="post" enctype="multipart/form-data">
+                    {{csrf_field()}}
                     <div class="form-control">
-                    <input type="file">
+                    <input type="file" name="image">
                     </div>
 
                     <button class="btn btn-success" type="submit">Submit</button>
